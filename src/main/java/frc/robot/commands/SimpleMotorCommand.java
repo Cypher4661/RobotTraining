@@ -22,6 +22,8 @@ public class SimpleMotorCommand extends Command {
   public void initialize() {
     startTime = Timer.getFPGATimestamp();
     timer.restart();
+    System.out.println("SimpleMotorCommand initialized with power: " + power + ", duration: " + duration);
+
   }
 
   @Override
@@ -37,6 +39,8 @@ public class SimpleMotorCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     motorSubsystem.stop();
+    System.out.println("SimpleMotorCommand ended after " + timer.get() + " seconds. Interrupted: " + interrupted);
+
   }
     
 }
