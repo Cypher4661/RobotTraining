@@ -4,15 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+//import frc.robot.Constants.OperatorConstants;
+//import frc.robot.commands.Autos;
+//import frc.robot.commands.ExampleCommand;
+//import frc.robot.commands.myFirstSubsystemCommand;
+//import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Subsystem;
-import frc.robot.subsystems.myFirstSubsystemCommand;
+import frc.robot.subsystems.SubsystemCommand1;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+//import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+//import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,7 +26,7 @@ public class RobotContainer {
    
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new myFirstSubsystemCommand(mySubsystem, 0.1, 10.0);
+    return new SubsystemCommand1(mySubsystem, 0.2, 0.1, 5.0);
   }
 
   private final Subsystem mySubsystem = new Subsystem();
