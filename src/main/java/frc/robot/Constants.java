@@ -17,7 +17,7 @@ import com.ctre.phoenix6.CANBus;
 public final class Constants {
 
   public static final class SimleMotorConstants {
-    public static final int MOTOR_ID = 1;
+    public static final int MOTOR_ID = 6;
     public static final CANBus MOTOR_CANBUS = CANBus.roboRIO();
   }
     
