@@ -13,37 +13,41 @@ public class Command1 extends Command {
   private final Subsystem1 MotorSubsystem;
   private final double Power;
   private final double Time;
-  private double startTime;
   private Timer timer = new Timer();
+  private final Subsystem1 NeoSubsystem;
+  private final double Power2;
 
-
-  public Command1(Subsystem1 MotorSubsystem, double Power, double Time) {
+  public Command1(Subsystem1 MotorSubsystem, Subsystem1 NeoSubsystem, double Power, double Time, double Power2) {
     this.MotorSubsystem = MotorSubsystem;
     this.Power = Power;
     this.Time = Time;
+    this.NeoSubsystem = NeoSubsystem;
+    this.Power2=Power2;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(MotorSubsystem);
+    addRequirements(NeoSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startTime = timer.getFPGATimestamp();
     timer.restart();
-    System.out.println("SimpleMotorCommand initialized with power: " + Power + ", duration: " + Time);
+    System.out.println("kraken initialized with power: " + Power + ", duration: " + Time + "Neo initialized with power:"+ Power2 + ", duration:"+ Time);
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    MotorSubsystem.setPower(Power);
+    MotorSubsystem.setPower1(Power);
+    NeoSubsystem.setPower2(Power2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     MotorSubsystem.stop();
+    NeoSubsystem.stop();
     System.out.println("Command ended.");
   }
 
