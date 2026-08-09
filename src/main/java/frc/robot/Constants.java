@@ -18,7 +18,7 @@ public final class Constants {
   public static final class master_yuda{
     public static final int Motor_ID=6;
     public static final CANBus Motor_CANbus = CANBus.roboRIO();
-    public static final int Neo_ID = 6;
+    public static final int Neo_ID = 8;
   }
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

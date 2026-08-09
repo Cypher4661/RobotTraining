@@ -22,11 +22,9 @@ public class Subsystem1 extends SubsystemBase {
     Neo = new SparkMax(Constants.master_yuda.Neo_ID, MotorType.kBrushless);
   }
 
-  public void setPower1(double power) {
+  public void setPower1(double power, double Power2) {
     motor.set(power);
-  }
-  public void setPower2(double Power2) {
-    motor.set(Power2);
+    Neo.set(Power2);
   }
 
   public void stop() {
