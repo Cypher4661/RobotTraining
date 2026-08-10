@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.print.DocFlavor.STRING;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -16,4 +18,16 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  
+public static final class SimpleMotorSubsystemConstants {
+  public static final int STEER_ID = 1;
+  public static final String MotorCANbus = "rio";
+}
+
+public static final class DriverConstants {
+public static final int DriverControllerPort = 0;
+public static final int OperatorControllerPort = 1;
+}
+
+public static final double driverdeadband = 0.1;
 }
