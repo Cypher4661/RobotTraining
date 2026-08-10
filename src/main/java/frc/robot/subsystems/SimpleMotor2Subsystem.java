@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class SimpleMotor2Subsystem extends SubsystemBase {
+    
 private final TalonFX motor2;
+
 public SimpleMotor2Subsystem (){
     super();
     motor2 = new TalonFX(Constants.SimpleMotor2SubsystemConstants.MOTOR2_ID,
