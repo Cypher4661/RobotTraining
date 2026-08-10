@@ -46,9 +46,9 @@ public class RobotContainer {
     return new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7);
     }
 
-    public Command getAutonomousCommand2() {
+  public Command getAutonomousCommand2() {
     // An example command will be run in autonomous
-    return new SimpleMotor2SubsystemCommands(subsystem2, -0.7, 7);
+    return new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7);
     }
 }
 
