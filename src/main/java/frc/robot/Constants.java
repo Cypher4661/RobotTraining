@@ -20,7 +20,7 @@ public final class Constants {
   }
   
 public static final class SimpleMotorSubsystemConstants {
-  public static final int MOTOR_ID = 1;
+  public static final int MOTOR1_ID = 1;
   public static final String MotorCANbus = "rio";
 }
 
