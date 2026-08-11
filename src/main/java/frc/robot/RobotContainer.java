@@ -13,6 +13,8 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SimpleMotor2Subsystem;
 import frc.robot.subsystems.SimpleMotorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -28,14 +30,18 @@ public class RobotContainer {
 
   private final SimpleMotorSubsystem subsystem1 = new SimpleMotorSubsystem();
   private final SimpleMotor2Subsystem subsystem2 = new SimpleMotor2Subsystem();
+  private CommandXboxController controller = new CommandXboxController(Constants.DriverConstants.DRIVER_ID);
 
   public RobotContainer() {
     configureBindings();
   }
 
-
   private void configureBindings() {
+
+    // button A
+    // controller.a().onTrue(///);
   }
+
   private void configureDefaultCommands() {
     subsystem1.setDefaultCommand(new SimpleMotorSubsystemCommand(subsystem1, 0, 0));
     subsystem2.setDefaultCommand(new SimpleMotor2SubsystemCommands(subsystem2, 0, 0));
@@ -43,13 +49,9 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7);
-    }
-
-  public Command getAutonomousCommand2() {
-    // An example command will be run in autonomous
-    return new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7);
-    }
+    return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
+        new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
+  }
 }
 
 /**
@@ -81,5 +83,22 @@ public class RobotContainer {
  * public Command getAutonomousCommand() {
  * // An example command will be run in autonomous
  * return Autos.exampleAuto(m_exampleSubsystem);
+ * }
+ * 
+ * private void configureBindings() {
+ * 
+ * //buttons
+ * controller.a().onTrue(///);
+ * controller.b().onFlase(/ command /);
+ * controller.rightBumper().onChange(/ command /);
+ * controller.x().onFlase(/ command /).onTrue(/ command /);
+ * 
+ * //joysticks
+ * double leftY = controller.getLeftY(); // -1 forward!!! -1 to 1
+ * double rightX = controller.getRightX();
+ * 
+ * //triggers of controller
+ * double leftTrigger = controller.getLeftTriggerAxis(); // 0 to 1
+ * double rightTrigger = controller.getRightTriggerAxis();
  * }
  */
