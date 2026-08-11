@@ -32,6 +32,7 @@ public static final class SimpleMotor2SubsystemConstants{
 public static final class DriverConstants {
 public static final int DriverControllerPort = 0;
 public static final int OperatorControllerPort = 1;
+public static final int DRIVER_ID = 1;
 }
 
 public static final double driverdeadband = 0.1;
