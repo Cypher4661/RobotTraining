@@ -39,7 +39,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     // button A
-    // controller.a().onTrue(///);
+    controller.a().onTrue(getCMD_A());
   }
 
   private void configureDefaultCommands() {
@@ -52,6 +52,10 @@ public class RobotContainer {
     return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
         new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
   }
+
+public Command getCMD_A(){
+  return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
+        new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));}
 }
 
 /**
