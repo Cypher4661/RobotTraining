@@ -26,7 +26,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-   private final Subsystem mySubsystem = new Subsystem();
+   //private final Subsystem mySubsystem = new Subsystem();
+ 
+  private final SubsystemPID subsystem;
+  public RobotContainer(){
+    subsystem=new SubsystemPID();
+  }
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     
@@ -37,29 +42,14 @@ public class RobotContainer {
    
    
    //lesson 8
-     return
+    /*  return
       new TurnToPose(mySubsystem, 90.0).
       andThen(new DriveTo(mySubsystem, 1.0).
       alongWith(new TurnToPose(mySubsystem, 135))).
       andThen(new TurnToPose(mySubsystem, 0).
       alongWith(new DriveTo(mySubsystem, -1.0)));
-    
-
-
-    
-    
-
-  
-      
-
-    
-
-
-    
-    
-
-
-    
+    */
+    return null;
   }
 
   

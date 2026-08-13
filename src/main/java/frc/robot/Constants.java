@@ -21,12 +21,12 @@ public final class Constants {
   public static final int MotorId1=2;
   public static final double gearRatio=6.75;//סתם הצבת מספר...
   public static final double wheelDiameter=0.2; // in meters, סתם הצבת מספר...
-  public static final int ID = 1;
+  public static final int ID = 7;
   public static final Canbus CAN_BUS = Canbus.Rio;
   public static final String NAME = "Motor";
-  public static final double KP = 0.0;
-  public static final double KI = 0.0;
-  public static final double KD = 0.0;
+  public static final double KP = 0.005;
+  public static final double KI = 0.001;
+  public static final double KD = 0.002;
   public static final double KS = 0.0;
   public static final double KV = 0.0;
   public static final double KA = 0.0;
