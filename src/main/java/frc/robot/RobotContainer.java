@@ -13,6 +13,7 @@ import frc.robot.commands.TurnToPose;
 //import frc.robot.commands.myFirstSubsystemCommand;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Subsystem;
+import frc.robot.subsystems.SubsystemPID;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -28,13 +29,28 @@ public class RobotContainer {
    private final Subsystem mySubsystem = new Subsystem();
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
+    
+    
+    
     //return new SubsystemCommand1(mySubsystem, 0.5, 0.5, 5.0);
-    return
+   
+   
+   
+   //lesson 8
+     return
       new TurnToPose(mySubsystem, 90.0).
       andThen(new DriveTo(mySubsystem, 1.0).
       alongWith(new TurnToPose(mySubsystem, 135))).
       andThen(new TurnToPose(mySubsystem, 0).
       alongWith(new DriveTo(mySubsystem, -1.0)));
+    
+
+
+    
+    
+
+  
+      
 
     
 
