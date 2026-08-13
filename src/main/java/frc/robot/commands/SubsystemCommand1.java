@@ -1,8 +1,9 @@
-package frc.robot.subsystems;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 //import frc.robot.subsystems.Subsystem;
+import frc.robot.subsystems.Subsystem;
 
 public class SubsystemCommand1 extends Command {
     private final Subsystem subsystem;
@@ -11,6 +12,7 @@ public class SubsystemCommand1 extends Command {
     private final double duration;
     
     private double startTime=0;
+    
 
     public SubsystemCommand1(Subsystem subsystem, double power, double power1, double duration) {
         this.subsystem = subsystem;
@@ -20,6 +22,7 @@ public class SubsystemCommand1 extends Command {
         addRequirements(subsystem);
     }
 
+    
     @Override
     public void initialize() {
         startTime=Timer.getFPGATimestamp();
