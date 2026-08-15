@@ -25,6 +25,7 @@ public final class Constants {
     public static final boolean isForwar1 = true;
     public static final boolean isForwar2 = false;
     public static final double steerPower = 0.3;
+    public static final double startigNeoPosition = 0;
   }
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

@@ -36,9 +36,13 @@ public class SubsystemDrive extends SubsystemBase {
   public double getPosition() {
     return motor.getPosition().getValueAsDouble();
   }
+  public double getVelosity(){
+    return motor.getVelocity().getValueAsDouble();
+  }
   @Override
   public void periodic() {
-  }
-}
+    SmartDashboard.putNumber("kraken position", getPosition());
+    SmartDashboard.putNumber("kraken velocity", getVelosity());
+}}
 
 

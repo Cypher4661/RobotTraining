@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.SubsystemDrive;
 import frc.robot.subsystems.SubsystemSteer;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,7 +27,7 @@ public class Command1 extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    neoSubsystem.setangle(0);
+    neoSubsystem.setangle(Constants.master_yuda.startigNeoPosition);
     System.out.println("Steer "+TargetAngle+" degrees");
   }
   @Override
