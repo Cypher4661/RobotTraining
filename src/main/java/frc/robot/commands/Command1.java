@@ -4,52 +4,44 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Subsystem1;
+import frc.robot.subsystems.SubsystemDrive;
+import frc.robot.subsystems.SubsystemSteer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class Command1 extends Command {
-  private final Subsystem1 MotorSubsystem;
-  private final double Power;
-  private final double Time;
-  private Timer timer = new Timer();
+  private final SubsystemSteer neoSubsystem;
   private final double Power2;
+  private final double TargetAngle;
+  public Command1(SubsystemSteer neoSubsystem, double Power2, double TargetAngle) {
 
-  public Command1(Subsystem1 MotorSubsystem, double Power, double Time, double Power2) {
-    this.MotorSubsystem = MotorSubsystem;
-    this.Power = Power;
-    this.Time = Time;
     this.Power2=Power2;
+    this.neoSubsystem = neoSubsystem;
+    this.TargetAngle = TargetAngle;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(MotorSubsystem);
+    addRequirements(neoSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.restart();
-    System.out.println("kraken initialized with power: " + Power + ", duration: " + Time + "Neo initialized with power:"+ Power2 + ", duration:"+ Time);
-
+    neoSubsystem.setangle(0);
+    System.out.println("Steer "+TargetAngle+" degrees");
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    MotorSubsystem.setPower1(Power, Power2);
+  public void execute(){
+    neoSubsystem.setPower2(Power2);
   }
-
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    MotorSubsystem.stop();
-    System.out.println("Command ended.");
+    neoSubsystem.stop();
+    System.out.println("Neo at "+TargetAngle+" degrees");
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-        return timer.hasElapsed(Time);
-
+        return neoSubsystem.getangle()>=TargetAngle;
   }
+
 }

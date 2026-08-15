@@ -19,6 +19,12 @@ public final class Constants {
     public static final int Motor_ID=6;
     public static final CANBus Motor_CANbus = CANBus.roboRIO();
     public static final int Neo_ID = 8;
+    public static final double TargetAngle1 = 90;
+    public static final double TargetAngle2 = 135;
+    public static final double TargetAngle3 = 0;
+    public static final boolean isForwar1 = true;
+    public static final boolean isForwar2 = false;
+    public static final double steerPower = 0.3;
   }
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

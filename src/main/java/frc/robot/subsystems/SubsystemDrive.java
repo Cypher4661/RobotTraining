@@ -8,32 +8,37 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Unit;
+import edu.wpi.first.units.VelocityUnit;
 
-public class Subsystem1 extends SubsystemBase {
+public class SubsystemDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public TalonFX motor;
   public SparkMax Neo;
-  public Subsystem1() {
+  public SubsystemDrive() {
     super();
     motor = new TalonFX(Constants.master_yuda.Motor_ID, Constants.master_yuda.Motor_CANbus);
-    Neo = new SparkMax(Constants.master_yuda.Neo_ID, MotorType.kBrushless);
   }
-
-  public void setPower1(double power, double Power2) {
+  public void setEncoder(double startingAngle){
+    motor.setPosition(startingAngle);
+  }
+  public void setPower1(double power) {
     motor.set(power);
-    Neo.set(Power2);
   }
-
   public void stop() {
     motor.set(0);
-    Neo.set(0);
   }
-
+  public double getPosition() {
+    return motor.getPosition().getValueAsDouble();
+  }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }
+
+

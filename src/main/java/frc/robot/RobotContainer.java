@@ -3,11 +3,15 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import frc.robot.Constants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.master_yuda;
 import frc.robot.commands.Command1;
-import frc.robot.subsystems.Subsystem1;
+import frc.robot.commands.commandDrive;
+import frc.robot.subsystems.SubsystemDrive;
+import frc.robot.subsystems.SubsystemSteer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -19,7 +23,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Subsystem1 subsystem = new Subsystem1();
+  private final SubsystemDrive subsystem = new SubsystemDrive();
+  private final SubsystemSteer subsystem2 = new SubsystemSteer();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -37,6 +42,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
   }
 
   /**
@@ -46,6 +52,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new Command1(subsystem, 0.3, 2.0, 0.5);
-  }
-}
+    new Command1(subsystem2, Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle1);
+    new ParallelCommandGroup(commandDrive(subsystem,master_yuda.isForwar1), Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle2));
+     
+      
+  }}
