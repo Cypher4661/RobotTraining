@@ -12,6 +12,7 @@ import frc.robot.subsystems.SubsystemDrive;
 import frc.robot.subsystems.SubsystemSteer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -52,8 +53,13 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    new Command1(subsystem2, Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle1);
-    new ParallelCommandGroup(commandDrive(subsystem,master_yuda.isForwar1), Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle2));
-     
-      
+    Command steer = new Command1(subsystem2, Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle1);
+    Command parallel1 = new ParallelCommandGroup(
+      new commandDrive(subsystem,master_yuda.isForwar1),
+      new Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle2));
+    Command parallel2 = new ParallelCommandGroup(
+      new commandDrive(subsystem,master_yuda.isForwar2),
+      new Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle3));
+    return new SequentialCommandGroup( steer, parallel1, parallel2);
+  
   }}
