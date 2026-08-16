@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class Command1 extends Command {
   private final SubsystemSteer neoSubsystem;
   private final double Power2;
+  private final double target;
   
-  public Command1(SubsystemSteer neoSubsystem, double Power2) {
+  public Command1(SubsystemSteer neoSubsystem, double Power2, double target) {
 
     this.Power2=Power2;
+    this.target=target;
     this.neoSubsystem = neoSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.

@@ -53,13 +53,13 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    Command steer = new Command1(subsystem2, Constants.master_yuda.steerPower);
+    Command steer = new Command1(subsystem2, Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle1);
     Command parallel1 = new ParallelCommandGroup(
       new commandDrive(subsystem,master_yuda.isForwar1),
-      new Command1(subsystem2,Constants.master_yuda.steerPower));
+      new Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle2));
     Command parallel2 = new ParallelCommandGroup(
       new commandDrive(subsystem,master_yuda.isForwar2),
-      new Command1(subsystem2,Constants.master_yuda.steerPower));
+      new Command1(subsystem2,Constants.master_yuda.steerPower,Constants.master_yuda.TargetAngle3));
     return new SequentialCommandGroup( steer, parallel1, parallel2);
   
   }
