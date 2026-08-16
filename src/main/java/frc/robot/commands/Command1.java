@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class Command1 extends Command {
   private final SubsystemSteer neoSubsystem;
   private final double Power2;
-  private final double TargetAngle;
-  public Command1(SubsystemSteer neoSubsystem, double Power2, double TargetAngle) {
+  
+  public Command1(SubsystemSteer neoSubsystem, double Power2) {
 
     this.Power2=Power2;
     this.neoSubsystem = neoSubsystem;
-    this.TargetAngle = TargetAngle;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(neoSubsystem);
   }
@@ -28,7 +28,7 @@ public class Command1 extends Command {
   @Override
   public void initialize() {
     neoSubsystem.setangle(Constants.master_yuda.startigNeoPosition);
-    System.out.println("Steer "+TargetAngle+" degrees");
+    System.out.println("Steer "+Constants.master_yuda.TargetAngle1+" degrees");
   }
   @Override
   public void execute(){
@@ -37,12 +37,12 @@ public class Command1 extends Command {
   @Override
   public void end(boolean interrupted) {
     neoSubsystem.stop();
-    System.out.println("Neo at "+TargetAngle+" degrees");
+    System.out.println("Neo at "+Constants.master_yuda.TargetAngle1+" degrees");
   }
 
   @Override
   public boolean isFinished() {
-        return neoSubsystem.getangle()>=TargetAngle;
+        return neoSubsystem.getangle()>=Constants.master_yuda.TargetAngle1;
   }
 
 }

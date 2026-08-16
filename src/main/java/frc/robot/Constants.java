@@ -18,7 +18,7 @@ public final class Constants {
   public static final class master_yuda{
     public static final int Motor_ID=6;
     public static final CANBus Motor_CANbus = CANBus.roboRIO();
-    public static final int Neo_ID = 8;
+    public static final int Neo_ID = 23;
     public static final double TargetAngle1 = 90;
     public static final double TargetAngle2 = 135;
     public static final double TargetAngle3 = 0;
