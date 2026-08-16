@@ -15,13 +15,14 @@ public class Command1 extends Command {
   private final SubsystemSteer neoSubsystem;
   private final double Power2;
   private final double target;
+  private final boolean isForward;
   
-  public Command1(SubsystemSteer neoSubsystem, double Power2, double target) {
+  public Command1(SubsystemSteer neoSubsystem, double Power2, double target, boolean isForward) {
 
     this.Power2=Power2;
     this.target=target;
     this.neoSubsystem = neoSubsystem;
-
+    this.isForward = isForward;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(neoSubsystem);
   }
@@ -30,21 +31,26 @@ public class Command1 extends Command {
   @Override
   public void initialize() {
     neoSubsystem.setangle(Constants.master_yuda.startigNeoPosition);
-    System.out.println("Steer "+Constants.master_yuda.TargetAngle1+" degrees");
+    System.out.println("Steer "+target+" degrees");
   }
   @Override
   public void execute(){
-    neoSubsystem.setPower2(Power2);
+    if (isForward) {
+      neoSubsystem.setPower2(Power2);
+    }
+    else{
+      neoSubsystem.setPower2(-Power2);
+    }
   }
   @Override
   public void end(boolean interrupted) {
     neoSubsystem.stop();
-    System.out.println("Neo at "+Constants.master_yuda.TargetAngle1+" degrees");
+    System.out.println("Neo at "+target+" degrees");
   }
 
   @Override
   public boolean isFinished() {
-        return neoSubsystem.getangle()>=Constants.master_yuda.TargetAngle1;
+        return neoSubsystem.getangle()>=target;
   }
 
 }

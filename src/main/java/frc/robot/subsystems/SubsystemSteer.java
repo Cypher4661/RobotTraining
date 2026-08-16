@@ -16,7 +16,8 @@ public class SubsystemSteer extends SubsystemBase {
     Neo = new SparkMax(Constants.master_yuda.Neo_ID, MotorType.kBrushless);
   }
   public void setPower2( double power) {
-    Neo.set(power);}
+    Neo.set(power);
+  }
 
   public void stop() {
     Neo.set(0);
