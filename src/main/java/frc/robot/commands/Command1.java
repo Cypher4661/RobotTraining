@@ -50,7 +50,11 @@ public class Command1 extends Command {
 
   @Override
   public boolean isFinished() {
+      if (isForward) {
         return neoSubsystem.getangle()>=target;
-  }
-
+        }
+      else{
+        return neoSubsystem.getangle()<=target;
+      }
+}
 }
