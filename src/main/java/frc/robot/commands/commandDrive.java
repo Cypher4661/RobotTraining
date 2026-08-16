@@ -29,7 +29,12 @@ public class commandDrive extends Command{
     //to move a meter when the wheel's diameter is 100 mm the wheel need to spin 100 times
     @Override
     public boolean isFinished(){
-        return driver.getPosition() >= 100 || driver.getPosition() <= -100;
+       if (isForward) {
+        return driver.getPosition() >= 20;
+       }
+        else{
+        return driver.getPosition() <= -20;
+        }
     }
 
     @Override
