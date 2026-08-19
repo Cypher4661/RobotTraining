@@ -2,24 +2,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.SimpleMotorSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MoveToAngleCommand extends Command{
     private SimpleMotorSubsystem subsystem;
     private double targetAngle;
     private boolean isFinished;
 
-    public MoveToAngleCommand(SimpleMotorSubsystem subsystem) {
+    public MoveToAngleCommand(SimpleMotorSubsystem subsystem, double angle) {
         this.subsystem = subsystem;
         addRequirements(subsystem);
-        SmartDashboard.putNumber("Target_Angle", 0.0);
+        //SmartDashboard.putNumber("Target_Angle", 0.0);
+        //this.targetAngle = Constants.SimpleMotorSubsystemConstants.ninetyDegrees; // Set target angle to 90 degrees
+        this.targetAngle = angle;
     }
 
     @Override
     public void initialize() {
         isFinished = false;
-        this.targetAngle = SmartDashboard.getNumber("Target_Angle", 0.0);
+        //this.targetAngle = SmartDashboard.getNumber("Target_Angle", 0.0);
         System.out.println("Moving to angle: " + targetAngle);
     }
 
@@ -27,7 +29,7 @@ public class MoveToAngleCommand extends Command{
     public void execute() {
         double currentAngle = subsystem.getAngle();
         double error = targetAngle - currentAngle;
-        double power = error * 0.5;
+        double power = error * 0.2;
         power = Math.max(-1.0, Math.min(1.0, power));
         subsystem.setPower(power);
         if (Math.abs(error) < 1.0) { // Considered close enough to target

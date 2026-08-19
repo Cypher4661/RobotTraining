@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.Radians;
-
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.util.sendable.Sendable;
@@ -40,9 +37,22 @@ public class SimpleMotorSubsystem extends SubsystemBase implements Sendable {
         return motor1.getPosition().getValueAsDouble() * Constants.SimpleMotorSubsystemConstants.wholeDegrees;
     }
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("position", getAngle());
-        SmartDashboard.getNumber("Target_Angle", 0.0);
+    public double getVelocity() {
+        return motor1.getVelocity().getValueAsDouble() * Constants.SimpleMotorSubsystemConstants.WheelP;
     }
+
+
+     @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.addDoubleProperty("Velocity", this::getVelocity, null);
+        builder.addDoubleProperty("position", this::getAngle, null); // method reference to getAngle and setAngle
+        builder.addDoubleProperty("power", ()->getPower(), null); // lambda function to return a local variable
+        SmartDashboard.putData("SimpleMotorSubsystem", this);
+    }
+    
+    //@Override
+    //public void periodic() {
+    //    SmartDashboard.putNumber("position", getAngle());
+    //    SmartDashboard.getNumber("Target_Angle", 0.0);
+    //}
 }

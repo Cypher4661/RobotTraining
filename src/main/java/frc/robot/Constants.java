@@ -23,11 +23,18 @@ public static final class SimpleMotorSubsystemConstants {
   public static final int Msteer_ID = 1;
   public static final String MotorCANbus1 = "rio";
   public static final double wholeDegrees = 360.0;
+  public static final double ninetyDegrees = 90.0;
+  public static final double InchesToMeters = 0.0254;
+  public static final double WheelP = 4*InchesToMeters;
 }
 
 public static final class SimpleMotor2SubsystemConstants{
   public static final int Mdrive_ID = 2;
   public static final String MotorCANbus2 = "rio";
+  public static final double OneMeter = 1.0;
+  public static final double wholeDegrees = 360.0;
+  public static final double InchesToMeters = 0.0254;
+  public static final double WheelP = 4*InchesToMeters;
 }
 
 public static final class DriverConstants {

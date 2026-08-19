@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Move1MeterCommand;
 import frc.robot.commands.SimpleMotor2SubsystemCommands;
 import frc.robot.commands.SimpleMotorSubsystemCommand;
 import frc.robot.commands.MoveToAngleCommand;
@@ -39,7 +40,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     //configureBindings();
-    SmartDashboard.putData("ThirdCommand", new MoveToAngleCommand(subsystem1));
+    //SmartDashboard.putData("ThirdCommand", new MoveToAngleCommand(subsystem1));
   }
 
   //private void configureBindings() {
@@ -55,9 +56,12 @@ public class RobotContainer {
 
 
   public Command getAutonomousCommand() {
+
+    return new SequentialCommandGroup(
+      new MoveToAngleCommand(subsystem1, 90.0).andThen(new Move1MeterCommand(subsystem2, 1.0).alongWith(new MoveToAngleCommand(subsystem1, 135.0))).andThen(new MoveToAngleCommand(subsystem1, 0.0).alongWith(new Move1MeterCommand(subsystem2, -1.0))));
     // An example command will be run in autonomous
-    return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
-        new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
+    //return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
+    //    new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
   }
 
 public Command getCMD_A(){
