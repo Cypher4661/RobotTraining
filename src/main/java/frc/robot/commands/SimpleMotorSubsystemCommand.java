@@ -37,7 +37,7 @@ public class SimpleMotorSubsystemCommand extends Command {
     }
 
     @Override
-    public void end (boolean ineteruption){
+    public void end (boolean interrupted){
         subsystem.stop();
         System.out.println("Finished");
         System.out.println("Ended at: " + Timer.getFPGATimestamp());

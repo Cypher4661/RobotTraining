@@ -6,16 +6,21 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.SimpleMotor2SubsystemCommands;
-import frc.robot.commands.SimpleMotorSubsystemCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SimpleMotor2Subsystem;
-import frc.robot.subsystems.SimpleMotorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.SimpleMotor2SubsystemCommands;
+import frc.robot.commands.SimpleMotorSubsystemCommand;
+import frc.robot.commands.MoveToAngleCommand;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SimpleMotor2Subsystem;
+import frc.robot.subsystems.SimpleMotorSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -33,19 +38,21 @@ public class RobotContainer {
   private CommandXboxController controller = new CommandXboxController(Constants.DriverConstants.DRIVER_ID);
 
   public RobotContainer() {
-    configureBindings();
+    //configureBindings();
+    SmartDashboard.putData("ThirdCommand", new MoveToAngleCommand(subsystem1));
   }
 
-  private void configureBindings() {
+  //private void configureBindings() {
 
     // button A
-    controller.a().onTrue(getCMD_A());
-  }
+   // controller.a().onTrue(getCMD_A());
+  //}
 
   private void configureDefaultCommands() {
     subsystem1.setDefaultCommand(new SimpleMotorSubsystemCommand(subsystem1, 0, 0));
     subsystem2.setDefaultCommand(new SimpleMotor2SubsystemCommands(subsystem2, 0, 0));
   }
+
 
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
@@ -55,7 +62,8 @@ public class RobotContainer {
 
 public Command getCMD_A(){
   return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
-        new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));}
+        new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
+      }
 }
 
 /**

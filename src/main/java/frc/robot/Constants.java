@@ -20,12 +20,13 @@ public final class Constants {
   }
   
 public static final class SimpleMotorSubsystemConstants {
-  public static final int MOTOR1_ID = 1;
+  public static final int Msteer_ID = 1;
   public static final String MotorCANbus1 = "rio";
+  public static final double wholeDegrees = 360.0;
 }
 
 public static final class SimpleMotor2SubsystemConstants{
-  public static final int MOTOR2_ID = 2;
+  public static final int Mdrive_ID = 2;
   public static final String MotorCANbus2 = "rio";
 }
 
