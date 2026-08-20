@@ -11,9 +11,10 @@ import frc.demacia.utils.motors.TalonFXMotor;
 
 public class SubsystemPID extends SubsystemBase {
   /** Creates a new SubsystemPID. */
-  TalonFXMotor motot;
+  TalonFXMotor motor;
+  double targetVelocity;
   public SubsystemPID() {
-    motot = new TalonFXMotor(Constants.CONFIG);
+    motor = new TalonFXMotor(Constants.CONFIG);
     SmartDashboard.putData("modola", this);
   }
 
@@ -26,31 +27,52 @@ public class SubsystemPID extends SubsystemBase {
     SmartDashboard.putNumber("motor velocity", getVelocity());
 
   }*/
-  
+  @Override
+  public void periodic(){
+    if(targetVelocity!=0){
+      setVelocity(targetVelocity);
+    }
+    
+  }
 
   @Override
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     super.initSendable(builder);
     builder.addDoubleProperty("motor angle ", ()->getAngle(),(angle)->setAngle(angle));
-    builder.addDoubleProperty("motor velocity", this:: getAngle, this:: setAngle);
+    builder.addDoubleProperty("target velocity", ()->getTargetVelocity(), (velocity)->setTargetVelocity(velocity));
+    builder.addDoubleProperty("current velocity",()-> getVelocity(), null);
+    builder.addDoubleProperty("motor voltage", ()->getVoltage(), (voltage)->setVoltage(voltage));
   } 
 
   public void setAngle(double angle){
-    motot.setPositionVoltage(angle);
+    motor.setPositionVoltage(angle);
   }
   public double getAngle(){
-    return motot.getPosition().getValueAsDouble();
+    return motor.getPosition().getValueAsDouble();
   }
   public void setPower(double power){
-    motot.setVoltage(power);
+    motor.setVoltage(power);
   }
   public void setVelocity(double velocity){
-    motot.setVelocity(velocity);
+    motor.setVelocity(velocity);
   }
   public double getVelocity(){
-    return motot.getVelocity().getValueAsDouble();
+    return motor.getVelocity().getValueAsDouble();
+  }
+  public void setTargetVelocity(double targetVelocity){
+    this.targetVelocity=targetVelocity;
+  }
+  public double getTargetVelocity(){
+    return this.targetVelocity;
+  }
+  public void setVoltage(double voltage){
+    motor.setVoltage(voltage); 
+  }
+  public double getVoltage(){
+    return motor.getCurrentVoltage();
   }
   
+
 
 }

@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import frc.demacia.utils.controller.CommandController;
+import frc.demacia.utils.controller.CommandController.ControllerType;
 import frc.robot.commands.DriveTo;
 import frc.robot.commands.SubsystemCommand1;
 import frc.robot.commands.TurnToPose;
+import frc.robot.subsystems.ModuleSubsystem;
 //import frc.robot.Constants.OperatorConstants;
 //import frc.robot.commands.Autos;
 //import frc.robot.commands.ExampleCommand;
@@ -14,6 +17,11 @@ import frc.robot.commands.TurnToPose;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Subsystem;
 import frc.robot.subsystems.SubsystemPID;
+
+import java.lang.ModuleLayer.Controller;
+
+import com.revrobotics.spark.SparkBase.ControlType;
+
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -28,9 +36,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class RobotContainer {
    //private final Subsystem mySubsystem = new Subsystem();
  
-  private final SubsystemPID subsystem;
+  private final ModuleSubsystem subsystem;
+  private final CommandController controller;
   public RobotContainer(){
-    subsystem=new SubsystemPID();
+
+    controller=new CommandController(0, ControllerType.kXbox);
+    subsystem=new ModuleSubsystem(controller);
   }
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
