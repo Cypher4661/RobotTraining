@@ -41,7 +41,8 @@ public class Motor_steer extends SubsystemBase implements Sendable {
     }
 
     public void setAngle(double angle) {
-        motorSteer.setPositionVoltage(angle);
+        motorSteer.setMotion(angle);
+        // motorSteer.setPositionVoltage(angle);
     }
 
     public double getKP() {
@@ -56,6 +57,20 @@ public class Motor_steer extends SubsystemBase implements Sendable {
         return Constants.Motor_steerConstants.KV;
     }
 
+    public double getECurrent() {
+        return motorSteer.getCurrentCurrent();
+    }
+
+    public double getEVoltage() {
+        return motorSteer.getCurrentVoltage();
+    }
+
+    public void setVoltage(double Voltage) {
+        if (Voltage > (-11.0) && Voltage < 11.0) {
+            motorSteer.setVoltage(Voltage);
+        }
+    }
+
     // public double getVelocity() {
     // return motor1.getVelocity().getValueAsDouble() *
     // Constants.Motor_steerConstants.WheelP;
@@ -66,9 +81,13 @@ public class Motor_steer extends SubsystemBase implements Sendable {
         // builder.addDoubleProperty("Velocity", this::getVelocity, null);
         // builder.addDoubleProperty("power", ()->getPower(), null); // lambda function
         // to return a local variable
-        builder.addDoubleProperty("position", this::getAngle, this::setAngle); // method reference to getAngle and setAngle
-                                                                              
+        builder.addDoubleProperty("position", this::getAngle, this::setAngle); // method reference to getAngle and
+                                                                               // setAngle
+
         builder.addDoubleProperty("power", this::getPower, this::setPower);
+
+        builder.addDoubleProperty("ECurrent_STEER", this::getECurrent, null);
+        builder.addDoubleProperty("EVoltage_STEER", this::getEVoltage, null);
 
         builder.addDoubleProperty("STEER_KP", this::getKP, null);
         builder.addDoubleProperty("STEER_KS", this::getKS, null);

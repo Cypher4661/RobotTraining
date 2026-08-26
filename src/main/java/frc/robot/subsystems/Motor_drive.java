@@ -19,7 +19,8 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         super();
         motorDrive = new TalonFXMotor(Constants.Motor_driveConstants.CONFIG);
         SmartDashboard.putData("Motor_drive", this);
-        // new TalonFX(Constants.MotorConstants.Mdrive_ID,Constants.Motor_driveConstants.MotorCANbus2);
+        // new
+        // TalonFX(Constants.MotorConstants.Mdrive_ID,Constants.Motor_driveConstants.MotorCANbus2);
     }
 
     public double getDistance() {
@@ -55,7 +56,7 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         motorDrive.setVelocity(velocity);
     }
 
-     public double getKP() {
+    public double getKP() {
         return Constants.Motor_driveConstants.KP;
     }
 
@@ -67,18 +68,38 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         return Constants.Motor_driveConstants.KV;
     }
 
+    public double getECurrent() {
+        return motorDrive.getCurrentCurrent();
+    }
+
+    public double getEVoltage() {
+        return motorDrive.getCurrentVoltage();
+    }
+
+    public void setVoltage(double Voltage) {
+        if (Voltage > (-11.0) && Voltage < 11.0) {
+            motorDrive.setVoltage(Voltage);
+        }
+    }
+
     @Override
     public void initSendable(SendableBuilder builder) {
-        // builder.addDoubleProperty("position", this::getAngle, null); // method reference to getAngle and setAngle
-        // builder.addDoubleProperty("power", ()->getPower(), this::setPower); // lambda function to return a local variable
-        builder.addDoubleProperty("Velocity", this::getVelocity, this::setVelocity); // method reference to getVelocity and set Velocity                                                                                   
+        // builder.addDoubleProperty("position", this::getAngle, null); // method
+        // reference to getAngle and setAngle
+        // builder.addDoubleProperty("power", ()->getPower(), this::setPower); // lambda
+        // function to return a local variable
+        builder.addDoubleProperty("Velocity", this::getVelocity, this::setVelocity); // method reference to getVelocity
+                                                                                     // and set Velocity
 
         builder.addDoubleProperty("power", this::getPower, this::setPower);
+
+        builder.addDoubleProperty("ECurrent_DRIVE", this::getECurrent, null);
+        builder.addDoubleProperty("EVoltage_DRIVE", this::getEVoltage, null);
 
         builder.addDoubleProperty("STEER_KP", this::getKP, null);
         builder.addDoubleProperty("STEER_KS", this::getKS, null);
         builder.addDoubleProperty("STEER_KV", this::getKV, null);
 
-}
+    }
 
 }
