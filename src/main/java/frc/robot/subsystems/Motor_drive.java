@@ -19,12 +19,12 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         super();
         motorDrive = new TalonFXMotor(Constants.Motor_driveConstants.CONFIG);
         SmartDashboard.putData("Motor_drive", this);
-        //new TalonFX(Constants.MotorConstants.Mdrive_ID, Constants.Motor_driveConstants.MotorCANbus2);
+        // new TalonFX(Constants.MotorConstants.Mdrive_ID,Constants.Motor_driveConstants.MotorCANbus2);
     }
 
     public double getDistance() {
-         return motorDrive.getPosition().getValueAsDouble() * Constants.Motor_driveConstants.WheelP;
-        
+        return motorDrive.getPosition().getValueAsDouble() * Constants.Motor_driveConstants.WheelP;
+
     }
 
     public void setPower(double power) {
@@ -55,12 +55,30 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         motorDrive.setVelocity(velocity);
     }
 
+     public double getKP() {
+        return Constants.Motor_driveConstants.KP;
+    }
+
+    public double getKS() {
+        return Constants.Motor_driveConstants.KS;
+    }
+
+    public double getKV() {
+        return Constants.Motor_driveConstants.KV;
+    }
 
     @Override
     public void initSendable(SendableBuilder builder) {
-        builder.addDoubleProperty("Velocity", this::getVelocity, this::setVelocity); // method reference to getVelocity and setVelocity
-        builder.addDoubleProperty("position", this::getAngle, null); // method reference to getAngle and setAngle
-        builder.addDoubleProperty("power", ()->getPower(), this::setPower); // lambda function to return a local variable
-    }
-    
+        // builder.addDoubleProperty("position", this::getAngle, null); // method reference to getAngle and setAngle
+        // builder.addDoubleProperty("power", ()->getPower(), this::setPower); // lambda function to return a local variable
+        builder.addDoubleProperty("Velocity", this::getVelocity, this::setVelocity); // method reference to getVelocity and set Velocity                                                                                   
+
+        builder.addDoubleProperty("power", this::getPower, this::setPower);
+
+        builder.addDoubleProperty("STEER_KP", this::getKP, null);
+        builder.addDoubleProperty("STEER_KS", this::getKS, null);
+        builder.addDoubleProperty("STEER_KV", this::getKV, null);
+
+}
+
 }

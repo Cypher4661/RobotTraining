@@ -14,9 +14,10 @@ import frc.robot.Constants;
 public class Motor_steer extends SubsystemBase implements Sendable {
     private final TalonFXMotor motorSteer;
 
-        public Motor_steer() {
+    public Motor_steer() {
         super();
         motorSteer = new TalonFXMotor(Constants.Motor_steerConstants.CONFIG);
+        SmartDashboard.putData("Motor_steer", this);
     }
 
     public void setPower(double power) {
@@ -26,6 +27,7 @@ public class Motor_steer extends SubsystemBase implements Sendable {
     public double getPower() {
         return motorSteer.get();
     }
+
     public String getName() {
         return "motorSteer";
     }
@@ -35,25 +37,47 @@ public class Motor_steer extends SubsystemBase implements Sendable {
     }
 
     public double getAngle() {
-        return motorSteer.getPosition().getValueAsDouble() * Constants.Motor_steerConstants.wholeDegrees;
+        return motorSteer.getCurrentAngle();
     }
 
-    //public double getVelocity() {
-    //    return motor1.getVelocity().getValueAsDouble() * Constants.Motor_steerConstants.WheelP;
-    //}
+    public void setAngle(double angle) {
+        motorSteer.setPositionVoltage(angle);
+    }
 
+    public double getKP() {
+        return Constants.Motor_steerConstants.KP;
+    }
 
-     @Override
+    public double getKS() {
+        return Constants.Motor_steerConstants.KS;
+    }
+
+    public double getKV() {
+        return Constants.Motor_steerConstants.KV;
+    }
+
+    // public double getVelocity() {
+    // return motor1.getVelocity().getValueAsDouble() *
+    // Constants.Motor_steerConstants.WheelP;
+    // }
+
+    @Override
     public void initSendable(SendableBuilder builder) {
-    //    builder.addDoubleProperty("Velocity", this::getVelocity, null);
-    //    builder.addDoubleProperty("position", this::getAngle, null); // method reference to getAngle and setAngle
-        builder.addDoubleProperty("power", ()->getPower(), null); // lambda function to return a local variable
-        SmartDashboard.putData("Motor_steer", this);
+        // builder.addDoubleProperty("Velocity", this::getVelocity, null);
+        // builder.addDoubleProperty("power", ()->getPower(), null); // lambda function
+        // to return a local variable
+        builder.addDoubleProperty("position", this::getAngle, this::setAngle); // method reference to getAngle and setAngle
+                                                                              
+        builder.addDoubleProperty("power", this::getPower, this::setPower);
+
+        builder.addDoubleProperty("STEER_KP", this::getKP, null);
+        builder.addDoubleProperty("STEER_KS", this::getKS, null);
+        builder.addDoubleProperty("STEER_KV", this::getKV, null);
     }
-    
-    //@Override
-    //public void periodic() {
-    //    SmartDashboard.putNumber("position", getAngle());
-    //    SmartDashboard.getNumber("Target_Angle", 0.0);
-    //}
+
+    // @Override
+    // public void periodic() {
+    // SmartDashboard.putNumber("position", getAngle());
+    // SmartDashboard.getNumber("Target_Angle", 0.0);
+    // }
 }
