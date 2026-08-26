@@ -1,16 +1,15 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.SimpleMotorSubsystem;
+import frc.robot.subsystems.Motor_steer;
 
 public class MoveToAngleCommand extends Command{
-    private SimpleMotorSubsystem subsystem;
+    private Motor_steer subsystem;
     private double targetAngle;
     private boolean isFinished;
 
-    public MoveToAngleCommand(SimpleMotorSubsystem subsystem, double angle) {
+    public MoveToAngleCommand(Motor_steer subsystem, double angle) {
         this.subsystem = subsystem;
         addRequirements(subsystem);
         //SmartDashboard.putNumber("Target_Angle", 0.0);
@@ -29,9 +28,10 @@ public class MoveToAngleCommand extends Command{
     public void execute() {
         double currentAngle = subsystem.getAngle();
         double error = targetAngle - currentAngle;
-        double power = error * 0.2;
+        double power = error * 0.003;
         power = Math.max(-1.0, Math.min(1.0, power));
         subsystem.setPower(power);
+
         if (Math.abs(error) < 1.0) { // Considered close enough to target
             isFinished = true;
         }

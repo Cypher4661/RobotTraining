@@ -1,17 +1,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SimpleMotor2Subsystem;
+import frc.robot.subsystems.Motor_drive;
 
 
 public class Move1MeterCommand extends Command{
     
-    private SimpleMotor2Subsystem subsystem;
+    private Motor_drive subsystem;
     private double targetDistance;
     public double startPosition;
     private boolean isFinished;
+    private double power;
 
-    public Move1MeterCommand(SimpleMotor2Subsystem subsystem, double distance) {
+    public Move1MeterCommand(Motor_drive subsystem, double distance) {
         this.subsystem = subsystem;
         this.targetDistance = subsystem.getDistance() + distance; // HW Target distance in meters
         startPosition = subsystem.getDistance();
@@ -26,11 +27,17 @@ public class Move1MeterCommand extends Command{
 
     @Override
     public void execute() {
-        double power = 0.2;
+        
+        if (targetDistance < subsystem.getDistance()) {
+            power = 0.2;
+        }
+        else {
+            power = (-0.2);
+        }
         power = Math.max(-1.0, Math.min(1.0, power));
         subsystem.setPower(power);
-        double currentDistance = subsystem.getDistance() - startPosition;
-        double error = targetDistance - currentDistance;
+        double currentDistance = Math.abs(subsystem.getDistance() - startPosition);
+        double error = Math.abs(targetDistance - currentDistance);
         if (Math.abs(error) < 0.05) {
             isFinished = true;
         }
