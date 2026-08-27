@@ -48,7 +48,7 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         motorDrive.setPositionVoltage(angle);
     }
 
-    public double getVelocity() {
+    public double getVelocityMpS() {
         return motorDrive.getVelocity().getValueAsDouble() * Constants.Motor_driveConstants.WheelP;
     }
 
@@ -88,17 +88,17 @@ public class Motor_drive extends SubsystemBase implements Sendable {
         // reference to getAngle and setAngle
         // builder.addDoubleProperty("power", ()->getPower(), this::setPower); // lambda
         // function to return a local variable
-        builder.addDoubleProperty("Velocity", this::getVelocity, this::setVelocity); // method reference to getVelocity
-                                                                                     // and set Velocity
+        // builder.addDoubleProperty("Velocity", this::getVelocityMpS, this::setVelocity); // method reference to getVelocity
+        //                                                                              // and set Velocity
 
-        builder.addDoubleProperty("power", this::getPower, this::setPower);
+        // builder.addDoubleProperty("power", this::getPower, this::setPower);
 
-        builder.addDoubleProperty("ECurrent_DRIVE", this::getECurrent, null);
-        builder.addDoubleProperty("EVoltage_DRIVE", this::getEVoltage, null);
+        // builder.addDoubleProperty("ECurrent_DRIVE", this::getECurrent, null);
+        // builder.addDoubleProperty("EVoltage_DRIVE", this::getEVoltage, null);
 
-        builder.addDoubleProperty("STEER_KP", this::getKP, null);
-        builder.addDoubleProperty("STEER_KS", this::getKS, null);
-        builder.addDoubleProperty("STEER_KV", this::getKV, null);
+        builder.addDoubleProperty("DRIVE_KP", this::getKP, null);
+        builder.addDoubleProperty("DRIVE_KS", this::getKS, null);
+        builder.addDoubleProperty("DRIVE_KV", this::getKV, null);
 
     }
 

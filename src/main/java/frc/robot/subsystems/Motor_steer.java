@@ -44,6 +44,9 @@ public class Motor_steer extends SubsystemBase implements Sendable {
         motorSteer.setMotion(angle);
         // motorSteer.setPositionVoltage(angle);
     }
+    public void setVelocity(double velocity) {
+        motorSteer.setVelocity(velocity);
+    }
 
     public double getKP() {
         return Constants.Motor_steerConstants.KP;
@@ -76,23 +79,23 @@ public class Motor_steer extends SubsystemBase implements Sendable {
     // Constants.Motor_steerConstants.WheelP;
     // }
 
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        // builder.addDoubleProperty("Velocity", this::getVelocity, null);
-        // builder.addDoubleProperty("power", ()->getPower(), null); // lambda function
-        // to return a local variable
-        builder.addDoubleProperty("position", this::getAngle, this::setAngle); // method reference to getAngle and
-                                                                               // setAngle
+     @Override
+     public void initSendable(SendableBuilder builder) {
+    //     // builder.addDoubleProperty("Velocity", this::getVelocity, null);
+    //     // builder.addDoubleProperty("power", ()->getPower(), null); // lambda function
+    //     // to return a local variable
+    //     builder.addDoubleProperty("position", this::getAngle, this::setAngle); // method reference to getAngle and
+    //                                                                            // setAngle
 
-        builder.addDoubleProperty("power", this::getPower, this::setPower);
+    //     builder.addDoubleProperty("power", this::getPower, this::setPower);
 
-        builder.addDoubleProperty("ECurrent_STEER", this::getECurrent, null);
-        builder.addDoubleProperty("EVoltage_STEER", this::getEVoltage, null);
+    //     builder.addDoubleProperty("ECurrent_STEER", this::getECurrent, null);
+    //     builder.addDoubleProperty("EVoltage_STEER", this::getEVoltage, null);
 
-        builder.addDoubleProperty("STEER_KP", this::getKP, null);
-        builder.addDoubleProperty("STEER_KS", this::getKS, null);
-        builder.addDoubleProperty("STEER_KV", this::getKV, null);
-    }
+         builder.addDoubleProperty("STEER_KP", this::getKP, null);
+         builder.addDoubleProperty("STEER_KS", this::getKS, null);
+         builder.addDoubleProperty("STEER_KV", this::getKV, null);
+     }
 
     // @Override
     // public void periodic() {

@@ -18,11 +18,13 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Motor_DriveSimpleCommand;
 import frc.robot.commands.Motor_SteerSimpleCommand;
 import frc.robot.commands.Move1MeterCommand;
-import frc.robot.commands.MoveToAngleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Motor_drive;
 import frc.robot.subsystems.Motor_steer;
+import frc.robot.subsystems.ModuleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.util.Units;
 
 
 /**
@@ -38,10 +40,12 @@ public class RobotContainer {
 
   private Motor_steer subsystemSTEER;
   private Motor_drive subsystemDRIVE;
+  private ModuleSubsystem subsystemMODULE;
   private CommandXboxController controller;
   public RobotContainer() {
     subsystemSTEER = new Motor_steer();
     subsystemDRIVE = new Motor_drive();
+    subsystemMODULE = new ModuleSubsystem(subsystemSTEER, subsystemDRIVE);
     controller = new CommandXboxController(Constants.DriverConstants.DRIVER_ID);
     // deadband = 0/01 or 0.1
     configureBindings();
@@ -53,29 +57,34 @@ public class RobotContainer {
     }
 
   private void configureDefaultCommands() {
-    subsystemSTEER.setDefaultCommand(
-        new RunCommand(() -> subsystemSTEER.setVoltage(-(controller.getLeftY()) * 0.5), subsystemSTEER)
-      );
-      subsystemDRIVE.setDefaultCommand(
-        new RunCommand(() -> subsystemDRIVE.setVoltage(-(controller.getLeftY()) * 0.5), subsystemDRIVE)
-    );
+    // subsystemSTEER.setDefaultCommand(
+    //     new RunCommand(() -> subsystemSTEER.setVoltage(-(controller.getLeftY()) * 0.5), subsystemSTEER)
+    //   );
+    //   subsystemDRIVE.setDefaultCommand(
+    //     new RunCommand(() -> subsystemDRIVE.setVoltage(-(controller.getLeftY()) * 0.5), subsystemDRIVE)
+    // );
+    subsystemMODULE.setDefaultCommand(
+      new RunCommand( () -> {
+        double filteredInput = MathUtil.applyDeadband(-(controller.getLeftY()), 0.05);
+        double targetVelocity = filteredInput * Constants.Motor_driveConstants.Max_Drive_Speed;
+        subsystemMODULE.setDriveVelocity(targetVelocity);}));
     //subsystemSTEER.setDefaultCommand(new Motor_SteerSimpleCommand(subsystemSTEER, 0, 0));
     //subsystemDRIVE.setDefaultCommand(new Motor_DriveSimpleCommand(subsystemDRIVE, 0, 0));
   }
 
 
-  public Command getAutonomousCommand() {
+   public Command getAutonomousCommand() {
 
-    return new SequentialCommandGroup(
-      new MoveToAngleCommand(subsystemSTEER, 90.0).
-      andThen(new Move1MeterCommand(subsystemDRIVE, 1.0)
-      .alongWith(new MoveToAngleCommand(subsystemSTEER, 135.0)))
-      .andThen(new MoveToAngleCommand(subsystemSTEER, 0.0)
-      .alongWith(new Move1MeterCommand(subsystemDRIVE, -1.0))));
-    // An example command will be run in autonomous
-    //return Commands.parallel(new SimpleMotorSubsystemCommand(subsystem1, 0.7, 7),
-    //    new SimpleMotor2SubsystemCommands(subsystem2, -0.5, 7));
-  }
+  //   return new SequentialCommandGroup(
+  //     new MoveToAngleCommand(subsystemSTEER, 90.0).
+  //     andThen(new Move1MeterCommand(subsystemDRIVE, 1.0)
+  //     .alongWith(new MoveToAngleCommand(subsystemSTEER, 135.0)))
+  //     .andThen(new MoveToAngleCommand(subsystemSTEER, 0.0)
+  //     .alongWith(new Move1MeterCommand(subsystemDRIVE, -1.0))));
+  //   An example command will be run in autonomous
+     return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),
+        new Motor_DriveSimpleCommand(subsystemDRIVE, -0.5, 7));
+   }
 
 public Command getCMD_A(){
   return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),

@@ -49,7 +49,7 @@ public static final class Motor_driveConstants {
   public static final int Mdrive_ID = 1;
   //  public static final String MotorCANbus2 = "rio";
   public static final Canbus MotorCANbus2 = Canbus.Rio;
- 
+  public static final double Max_Drive_Speed = 5;
   public static final double KP = 0.1, KI = 0.0, KD = 0.0, KS = 2.13196, KV = 0.05826, KA = 0.0, KG = 0.0;
   public static final TalonFXConfig CONFIG = new TalonFXConfig(Mdrive_ID, MotorCANbus2, "MotorDrive").withPID(KP, KI, KD, KS, KV, KA, KG)
   .withMotionParam(50.0, 100.0, 1000.0)
