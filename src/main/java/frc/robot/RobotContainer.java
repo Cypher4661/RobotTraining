@@ -24,8 +24,8 @@ import frc.robot.subsystems.Motor_steer;
 import frc.robot.subsystems.ModuleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -42,6 +42,7 @@ public class RobotContainer {
   private Motor_drive subsystemDRIVE;
   private ModuleSubsystem subsystemMODULE;
   private CommandXboxController controller;
+
   public RobotContainer() {
     subsystemSTEER = new Motor_steer();
     subsystemDRIVE = new Motor_drive();
@@ -51,45 +52,63 @@ public class RobotContainer {
     configureBindings();
   }
 
-    private void configureBindings() {
-    //button A;
-    //controller.a().onTrue(getCMD_A());
-    }
+  private void configureBindings() {
+    // button A;
+    // controller.a().onTrue(getCMD_A());
+  }
 
   private void configureDefaultCommands() {
     // subsystemSTEER.setDefaultCommand(
-    //     new RunCommand(() -> subsystemSTEER.setVoltage(-(controller.getLeftY()) * 0.5), subsystemSTEER)
-    //   );
-    //   subsystemDRIVE.setDefaultCommand(
-    //     new RunCommand(() -> subsystemDRIVE.setVoltage(-(controller.getLeftY()) * 0.5), subsystemDRIVE)
+    // new RunCommand(() -> subsystemSTEER.setVoltage(-(controller.getLeftY()) *
+    // 0.5), subsystemSTEER)
     // );
+    // subsystemDRIVE.setDefaultCommand(
+    // new RunCommand(() -> subsystemDRIVE.setVoltage(-(controller.getLeftY()) *
+    // 0.5), subsystemDRIVE)
+    // );
+    // subsystemMODULE.setDefaultCommand(
+    //     new RunCommand(() -> {
+    //       double filteredInput = MathUtil.applyDeadband(-(controller.getLeftY()), 0.1);
+    //       double targetVelocity = filteredInput * Constants.Motor_driveConstants.Max_Drive_Speed;
+    //       subsystemMODULE.setDriveVelocity(targetVelocity);
+    //     }));
+
     subsystemMODULE.setDefaultCommand(
-      new RunCommand( () -> {
-        double filteredInput = MathUtil.applyDeadband(-(controller.getLeftY()), 0.05);
-        double targetVelocity = filteredInput * Constants.Motor_driveConstants.Max_Drive_Speed;
-        subsystemMODULE.setDriveVelocity(targetVelocity);}));
-    //subsystemSTEER.setDefaultCommand(new Motor_SteerSimpleCommand(subsystemSTEER, 0, 0));
-    //subsystemDRIVE.setDefaultCommand(new Motor_DriveSimpleCommand(subsystemDRIVE, 0, 0));
+        new RunCommand(() -> {
+          double LeftX = controller.getLeftX();
+          double LeftY = -(controller.getLeftY());
+          double filteredX = MathUtil.applyDeadband(LeftX, Constants.DriverConstants.Deadband);
+          double filteredY = MathUtil.applyDeadband(LeftY, Constants.DriverConstants.Deadband);
+          if (filteredX != 0.0 || filteredY != 0.0){
+          Rotation2d direction = new Rotation2d(LeftX, LeftY);
+          double targetAngle = direction.getDegrees();
+          subsystemMODULE.setSteerAngle(targetAngle);}
+        })
+        );
+        //no need for: .addRequirements(subsystemDRIVE, subsystemSTEER) -- because it's in DefaultCommand
+    // subsystemSTEER.setDefaultCommand(new Motor_SteerSimpleCommand(subsystemSTEER,
+    // 0, 0));
+    // subsystemDRIVE.setDefaultCommand(new Motor_DriveSimpleCommand(subsystemDRIVE,
+    // 0, 0));
   }
 
+  public Command getAutonomousCommand() {
 
-   public Command getAutonomousCommand() {
-
-  //   return new SequentialCommandGroup(
-  //     new MoveToAngleCommand(subsystemSTEER, 90.0).
-  //     andThen(new Move1MeterCommand(subsystemDRIVE, 1.0)
-  //     .alongWith(new MoveToAngleCommand(subsystemSTEER, 135.0)))
-  //     .andThen(new MoveToAngleCommand(subsystemSTEER, 0.0)
-  //     .alongWith(new Move1MeterCommand(subsystemDRIVE, -1.0))));
-  //   An example command will be run in autonomous
-     return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),
+    // return new SequentialCommandGroup(
+    // new MoveToAngleCommand(subsystemSTEER, 90.0).
+    // andThen(new Move1MeterCommand(subsystemDRIVE, 1.0)
+    // .alongWith(new MoveToAngleCommand(subsystemSTEER, 135.0)))
+    // .andThen(new MoveToAngleCommand(subsystemSTEER, 0.0)
+    // .alongWith(new Move1MeterCommand(subsystemDRIVE, -1.0))));
+    // An example command will be run in autonomous
+    return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),
         new Motor_DriveSimpleCommand(subsystemDRIVE, -0.5, 7));
-   }
+  }
 
-public Command getCMD_A(){
-  return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),
+  public Command getCMD_A() {
+    return Commands.parallel(new Motor_SteerSimpleCommand(subsystemSTEER, 0.7, 7),
         new Motor_DriveSimpleCommand(subsystemDRIVE, -0.5, 7));
-      }
+  }
 }
 
 /**
