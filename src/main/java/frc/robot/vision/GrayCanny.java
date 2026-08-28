@@ -6,8 +6,6 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-import edu.wpi.first.vision.VisionThread;
-
 public class GrayCanny {
 // This class detects a yellow ball in an image using OpenCV
 // The file is in the GIT folder
