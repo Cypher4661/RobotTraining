@@ -8,11 +8,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.subsystems.ModuleSubsystem;
 
-
-
-
-
-
 public class JoystickMoveCommand extends Command {
     private ModuleSubsystem Module;
     private CommandXboxController controller;
@@ -20,7 +15,7 @@ public class JoystickMoveCommand extends Command {
     private double LeftX;
     private double filteredX;
     private double filteredY;
-    
+
     public JoystickMoveCommand(ModuleSubsystem Module, CommandXboxController controller) {
         this.Module = Module;
         this.controller = controller;
@@ -28,24 +23,32 @@ public class JoystickMoveCommand extends Command {
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         LeftX = this.controller.getLeftX();
         leftY = -(this.controller.getLeftY());
         filteredX = MathUtil.applyDeadband(LeftX, Constants.DriverConstants.Deadband);
         filteredY = MathUtil.applyDeadband(leftY, Constants.DriverConstants.Deadband);
-        if (filteredX != Constants.DriverConstants.JoystickCenter || filteredY != Constants.DriverConstants.JoystickCenter){
-          Rotation2d direction = new Rotation2d(LeftX, leftY);
-          double targetAngle = direction.getDegrees();
-          Module.setSteerAngle(targetAngle);}
+        if (filteredX != Constants.DriverConstants.JoystickCenter
+                || filteredY != Constants.DriverConstants.JoystickCenter) {
+            Rotation2d direction = new Rotation2d(LeftX, leftY);
+            double targetAngle = direction.getDegrees();
+            Module.setSteerAngle(targetAngle);
+            double joystickMagnitude = Math.hypot(filteredX, filteredY);
+            joystickMagnitude = Math.min(joystickMagnitude, Constants.DriverConstants.MaxJoystickMagnitude);
+            double targetVelocity = joystickMagnitude * 7;
+            Module.setDriveVelocity(targetVelocity);
+        }
+        else{Module.setDriveVelocity(0.0);}
+
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    public void end (boolean ineteruption){
+    public void end(boolean ineteruption) {
         this.Module.stopModula();
         System.out.println("Modula stopped");
     }
