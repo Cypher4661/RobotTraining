@@ -27,6 +27,11 @@ public class ModuleSubsystem extends SubsystemBase implements Sendable {
         SmartDashboard.putData("ModuleSubsystem", this);
     }
 
+    public void stopModula(){
+        this.motorDrive.setPower(0.0);
+        this.motorSteer.setPower(0.0);
+    }
+
     public void setDriveVelocity(double velocity) {
         this.motorDrive.setVelocity(velocity);
     }

@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.JoystickMoveCommand;
+import frc.robot.commands.JoystickMoveCommand;
 import frc.robot.commands.Motor_DriveSimpleCommand;
 import frc.robot.commands.Motor_SteerSimpleCommand;
 import frc.robot.commands.Move1MeterCommand;
@@ -58,6 +60,8 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
+    subsystemMODULE.setDefaultCommand(new JoystickMoveCommand(subsystemMODULE, controller));
+    
     // subsystemSTEER.setDefaultCommand(
     // new RunCommand(() -> subsystemSTEER.setVoltage(-(controller.getLeftY()) *
     // 0.5), subsystemSTEER)
@@ -66,25 +70,6 @@ public class RobotContainer {
     // new RunCommand(() -> subsystemDRIVE.setVoltage(-(controller.getLeftY()) *
     // 0.5), subsystemDRIVE)
     // );
-    // subsystemMODULE.setDefaultCommand(
-    //     new RunCommand(() -> {
-    //       double filteredInput = MathUtil.applyDeadband(-(controller.getLeftY()), 0.1);
-    //       double targetVelocity = filteredInput * Constants.Motor_driveConstants.Max_Drive_Speed;
-    //       subsystemMODULE.setDriveVelocity(targetVelocity);
-    //     }));
-
-    subsystemMODULE.setDefaultCommand(
-        new RunCommand(() -> {
-          double LeftX = controller.getLeftX();
-          double LeftY = -(controller.getLeftY());
-          double filteredX = MathUtil.applyDeadband(LeftX, Constants.DriverConstants.Deadband);
-          double filteredY = MathUtil.applyDeadband(LeftY, Constants.DriverConstants.Deadband);
-          if (filteredX != 0.0 || filteredY != 0.0){
-          Rotation2d direction = new Rotation2d(LeftX, LeftY);
-          double targetAngle = direction.getDegrees();
-          subsystemMODULE.setSteerAngle(targetAngle);}
-        })
-        );
         //no need for: .addRequirements(subsystemDRIVE, subsystemSTEER) -- because it's in DefaultCommand
     // subsystemSTEER.setDefaultCommand(new Motor_SteerSimpleCommand(subsystemSTEER,
     // 0, 0));
