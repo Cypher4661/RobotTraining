@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "GrayCanny",
+      "request": "launch",
+      "mainClass": "frc.robot.vision.GrayCanny",
+      "projectName": "RobotTraining"
+    },
+    {
+      "type": "java",
       "name": "DetectBall",
       "request": "launch",
       "mainClass": "frc.robot.vision.DetectBall",
