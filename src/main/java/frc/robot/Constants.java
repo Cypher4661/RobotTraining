@@ -54,13 +54,16 @@ public final class Constants {
   public static final double KG = 0.0;
 
 
-  public static final double GEAR_RATIO = 6.75;
+  public static final double GEAR_RATIO = 8.14;
   public static final int CANCODER_ID=9;
   public static final Canbus CANCODER_CANBUS=Canbus.Rio;
   public static final String CANCODER_NAME="cancoder";
   public static final double radiansGearRatio=150/7;
 
   public static final CancoderConfig CANCODER_CONFIG=new CancoderConfig(CANCODER_ID,CANCODER_CANBUS,CANCODER_NAME);
+
+
+  public static final double offSet=-1.0;
 
   public static final TalonFXConfig CONFIG= new TalonFXConfig(ID, CAN_BUS, NAME)
   .withPID(KP, KI, KD, KS, KV, KA, KG)
