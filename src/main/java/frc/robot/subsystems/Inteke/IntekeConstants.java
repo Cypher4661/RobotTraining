@@ -9,7 +9,7 @@ public class IntekeConstants {
   public static final TalonFXConfig leftConfig = new TalonFXConfig(0, Canbus.Rio, "left")
         .withBrake(true)
         .withInvert(false)
-        .withPID(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        .withPID(0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         .withMaxPositionError(5)
         .withCurrent(40)
         .withVolts(12);
